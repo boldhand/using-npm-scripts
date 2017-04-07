@@ -55,7 +55,7 @@ The application is tested on android and IOS devices in addition to Windows and 
 
 1. Clone or Download the project.
 
-2. Install node.js and npm from nodejs.org (npm is already packaged with the node installation).
+2. Install **node.js** and **npm** from nodejs.org (Note: npm is already packaged with the node installation).
 
 4. to check that Node.js and npm are properly installed run the commands `node -v` and `npm -v` in the Terminal or Command Prompt on Windows, you should get the version number.
 
