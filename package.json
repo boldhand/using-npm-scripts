@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel dev:*",
-    "dev:sass-dev": "node-sass --watch builds/development/scss --output-style expanded --source-map true watch builds/development/scss/main.scss --output builds/development/css",
+    "dev:sass-dev": "node-sass --watch builds/development/scss/main.scss --output-style expanded --source-map true builds/development/scss/main.scss --output builds/development/css",
     "dev:autoprefixer": "postcss --use autoprefixer -r builds/development/css/main.css",
     "dev:js-transform": "babel builds/development/js/process/**/*.js --watch --out-file builds/development/js/main.js --source-maps",
     "dev:serve": "live-server builds/development",

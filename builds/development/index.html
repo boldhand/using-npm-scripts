@@ -19,16 +19,22 @@
   <![endif]-->
 
 	<div id="app">
+
 		<header>
-      <img src="images/logo.svg" class="logo" alt="Searo Search Logo">
+      <h1>Searo Search</h1>
     </header>
+
 		<main>
-		<div id="searcharea">
-			<input type="text" name="search" role="search" id="search" placeholder="Search for country..." autocomplete="off" autofocus />
-			<div id="update"></div>
-		</div>
-		<ul id="history"></ul>
+      <div id="searcharea">
+
+        <input type="text" name="search" id="search" placeholder="Search for country..." autocomplete="off" autofocus />
+
+        <div id="update"></div>
+        <ul id="suggestions"></ul>
+      </div>
+      <ul id="history"></ul>
 		</main>
+
 	</div>
 
 <script src="js/jquery.js"></script>

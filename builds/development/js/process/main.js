@@ -1,48 +1,89 @@
 /* ==============================================================
 // in search get from json to list
 ============================================================== */
-var search = document.getElementById("search");
-search.addEventListener('keyup', function(event){
+//Get the Data Function
+function getData(url, callback) {
 
-	//clear results if the value is blank or starts with space
-	if (!this.value.trim()) {
-		clearUpdate();
-		return;
-	}
+  var xmlhttp = new XMLHttpRequest();
 
-	var searchField = document.getElementById("search").value;
-	var myExp = new RegExp(searchField, "i");
+  xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          try {
+              var data = JSON.parse(xmlhttp.responseText);
+          } catch(err) {
+              console.log(err.message + ' in ' + xmlhttp.responseText);
+              return;
+          }
+          callback(data);
+      }
+  };
 
-	function fetchfile(path, callback) {
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-			var data = JSON.parse(this.responseText);
-			if (callback) callback(data);
-        }
-    };
-    httpRequest.open('GET', path, true);
-    httpRequest.send();
-	}
-	fetchfile('https://restcountries.eu/rest/v1', function(data){
-		var output = '<ul id="searchresults">';
-		$.each(data, function(key, val) {
-			if ((val.name.search(myExp) != -1) || (val.capital.search(myExp) != -1)) {
-				output += '<li tabindex="1">';
-				output += val.name + ', ' + val.capital;
-				output += '</li>';
-			}
-		});
-		output += '</ul>';
-		$('#update').html(output);
-	});
+  xmlhttp.open('GET', url, true);
+  xmlhttp.send();
+
+}
+// Store the data in List items
+getData('https://restcountries.eu/rest/v1', function(data) {
+
+  var searchValue = document.getElementById("search").value;
+  var myExp = new RegExp(searchValue, "i");
+  var html = '';
+
+  for (var i=0; i < data.length; i++) {
+      // if ((data.name = ) || (data.capital = )) {
+        html += '<li>' + data[i].name + '</li>';
+      // }
+  }
+
+  document.getElementById('suggestions').innerHTML = html;
+
 });
+
+
+
+
+// var search = document.getElementById("search");
+// search.addEventListener('keyup', function(event){
+
+// 	//clear results if the value is blank or starts with space
+// 	if (!this.value.trim()) {
+// 		clearUpdate();
+// 		return;
+// 	}
+
+// 	var searchField = document.getElementById("search").value;
+// 	var myExp = new RegExp(searchField, "i");
+
+// 	function fetchfile(path, callback) {
+//     var httpRequest = new XMLHttpRequest();
+//     httpRequest.onreadystatechange = function() {
+//         if (this.readyState === 4 && this.status === 200) {
+// 			var data = JSON.parse(this.responseText);
+// 			if (callback) callback(data);
+//         }
+//     };
+//     httpRequest.open('GET', path, true);
+//     httpRequest.send();
+// 	}
+// 	fetchfile('https://restcountries.eu/rest/v1', function(data){
+// 		var output = '<ul id="searchresults">';
+// 		$.each(data, function(key, val) {
+// 			if ((val.name.search(myExp) != -1) || (val.capital.search(myExp) != -1)) {
+// 				output += '<li tabindex="1">';
+// 				output += val.name + ', ' + val.capital;
+// 				output += '</li>';
+// 			}
+// 		});
+// 		output += '</ul>';
+// 		$('#update').html(output);
+// 	});
+// });
 /* ==============================================================
 //Add item to history on click an item in the sugested items
 ============================================================== */
 var update = document.getElementById('update');
-update.addEventListener("click", function(event) {
-	if(event.target && event.target.nodeName == "LI") {
+update.addEventListener('click', function(event) {
+	if(event.target && event.target.nodeName == 'LI') {
 		var searchString = event.target.innerText;
 		createSearchResult(searchString);
 		clearUpdate();
@@ -52,7 +93,7 @@ update.addEventListener("click", function(event) {
 /* ==============================================================
 // EVENTS: Add item to history on Enter on the search input fields
 ============================================================== */
-var search = document.getElementById("search");
+var search = document.getElementById('search');
 search.addEventListener('keydown', function(event){
 	if(event.keyCode == 13){ //Enter Key
 		var searchString = search.value;
@@ -92,7 +133,7 @@ function clearUpdate() {
 //Clear Input
 ============================================================== */
 function emptyInput() {
-	var search = document.getElementById("search");
+	var search = document.getElementById('search');
 	search.value = '';
 }
 /* ==============================================================
@@ -117,89 +158,10 @@ function dateStamp() {
 ============================================================== */
 function createRemoveButton() {
     var button = document.createElement('button');
-    button.className = "remove-item";
+    button.className = 'remove-item';
     button.addEventListener('click', function(event) {
         event.target.parentNode.remove(this);
     });
     return button;
 };
-/* ==============================================================
-//Listeners
-============================================================== */
 
-
-
-
-
-
-
-
-// var search = document.getElementById("search");
-// search.addEventListener('keydown', function(event){
-// 	if(event.keyCode == 40){ //down Key
-// 		var firstList = document.getElementsByTagName("li")[0];
-// 		firstList.classList.add("selected");
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-// $('#search').on('keydown', function(e){
-// 	var $listItems = $('#update li');
-//     var key = e.keyCode,
-//         $selected = $listItems.filter('.selected'),
-//         $current;
-
-//     $listItems.removeClass('selected');
-
-
-// 		var menu = $('#searchresults');
-
-// 		if ( key == 40 ) // Down key
-// 		{
-// 			if ( ! $selected.length || $selected.is(':last-child') ) {
-// 				$current = $listItems.eq(0);
-// 			}
-// 			else {
-// 				$current = $selected.next();
-// 			}
-
-// 			$current.addClass('selected');
-// 		}
-
-// 		if ( key == 38 ) // Up key
-// 		{
-// 			if ( ! $selected.length || $selected.is(':first-child') ) {
-// 				$current = $listItems.last();
-// 			}
-// 			else {
-// 				$current = $selected.prev();
-// 			}
-// 			$current.addClass('selected');
-// 		}
-
-// });
-
-
-
-
-
-// $("#search").keydown(function(){
-//     $("input").css("background-color", "yellow");
-// 	var what = $('.selected').text();
-// 	console.log(what);
-// 	if(event.keyCode == 13){ //Enter Key
-// 		var searchString = what;
-// 			createSearchResult(searchString);
-// 			clearUpdate();
-// 			emptyInput();
-
-//     }
-// });

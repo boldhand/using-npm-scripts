@@ -1,0 +1,42 @@
+/* ==============================================================
+The Input Search Box
+============================================================== */
+input:focus, button:focus {
+  outline: none;
+}
+#search {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  padding: 2.2rem 1.5rem 2.2rem 7rem;
+  background: url('../images/search.svg') no-repeat 2rem center rgba($white, 0.3);
+  background-size: 25px;
+  border: 0;
+  border-radius: 5px;
+  font-size: 24px;
+  color: $white;
+  box-sizing: border-box;
+  -webkit-transition: background .4s ease-in-out;
+  transition: background .4s ease-in-out;
+  opacity: 0;
+  animation: slidetop .5s linear .2s forwards;
+  :focus {
+    background: url('../images/search.svg') no-repeat 2rem center rgba($white, 0.6);
+    background-size: 25px;
+    a {
+      color: $white;
+    }
+  }
+}
+::-webkit-input-placeholder {
+    color: rgba($white, 0.4);
+}
+::-moz-placeholder {
+    color: rgba($white, 0.4);
+}
+:-ms-input-placeholder {
+    color: rgba($white, 0.4);
+}
+:-moz-placeholder {
+    color: rgba($white, 0.4);
+}

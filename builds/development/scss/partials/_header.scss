@@ -1,0 +1,14 @@
+/* ==============================================================
+The Header
+============================================================== */
+header {
+  margin: 8.8rem auto 7rem;
+  text-align: center;
+  h1 {
+    animation: slidetop .5s linear;
+    background: url('../images/logo.svg') no-repeat center;
+    text-indent: 100%;
+	  white-space: nowrap;
+	  overflow: hidden;
+  }
+}

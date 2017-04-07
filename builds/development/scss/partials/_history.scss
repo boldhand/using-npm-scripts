@@ -1,0 +1,72 @@
+/* ==============================================================
+The List of History Search
+============================================================== */
+#history {
+  font-size: 18px;
+  color: $white;
+  list-style-type: none;
+  padding: 2rem 0;
+  background: rgba($white, 0.1);
+  margin-top: 2rem;
+
+  &:empty {
+    display: none;
+  }
+
+  li {
+    animation-name: slidebottom;
+    animation-duration: .5s;
+    -webkit-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+      background: rgba($white, 0.1);
+
+      .remove-item {
+        opacity: 1;
+      }
+    }
+
+    &.remove{
+      animation-name: remove;
+      animation-duration: .3s;
+    }
+
+    h2 { // The title selected
+      font-weight: normal;
+      display: inline-block;
+      margin: 0 0 0 2rem;
+      padding-right: 2rem;
+      width: 50%;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    time { // The timestamp
+      font-size: 16px;
+      width: 50%;
+      letter-spacing: 2px;
+    }
+
+    .remove-item { // The remove button
+      opacity: 0;
+      background: url('../images/delete.svg') no-repeat center center $delete-botton;
+      background-size: 25px;
+      border: 0;
+      width: 70px;
+      height: 70px;
+      cursor: pointer;
+      -webkit-transition: opacity 0.3s ease-in-out;
+      transition: opacity 0.3s ease-in-out;
+
+      &:hover {
+        background: url('../images/delete.svg') no-repeat center center darken($delete-botton, 5%);
+        background-size: 25px;
+      }
+    }
+  }
+}

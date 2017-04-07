@@ -13,7 +13,7 @@ This is a link to the project [demo](http://searo.surge.com)
   * Very subtle animation to add a better user experience using CSS3.
 
 ## Languages and Tools
-* This project is build using semantic **HTML5**, **SCSS** compiled to **CSS** and **JS ES5**.
+* This project is build using validated and semantic **HTML5**, **SCSS** compiled to **CSS** and **JS ES5**.
 
 * **npm scripts** is used as the building tool for: 
   * preprocessing SCSS files to CSS and adding source map for easier debugging.
@@ -51,7 +51,7 @@ The application is tested on android and IOS devices in addition to Windows and 
 * For direct production and deployment use the folder **builds > production**
 * For developing and/or viewing the written HTML, SCSS, CSS and JS code navigate to the folder **builds > development**
 
-## Instructions for development and production
+## Instructions
 
 1. Clone or Download the project.
 
