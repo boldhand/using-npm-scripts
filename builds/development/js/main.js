@@ -44,8 +44,8 @@ search.addEventListener('keyup', function (event) {
 var suggestions = document.getElementById('suggestions');
 suggestions.addEventListener('click', function (event) {
   if (event.target && event.target.nodeName == 'LI') {
-    var searchString = event.target.innerText;
-    createSearchResult(searchString);
+    var searchTerm = event.target.innerText;
+    createSearchResult(searchTerm);
     clearSuggestions();
     emptyInput();
   }
@@ -57,11 +57,11 @@ var search = document.getElementById('search');
 search.addEventListener('keydown', function (event) {
   if (event.keyCode == 13) {
     //Enter Key
-    var searchString = search.value;
+    var searchTerm = search.value;
 
     if (search.value) {
       // if not empty
-      createSearchResult(searchString);
+      createSearchResult(searchTerm);
       clearSuggestions();
       emptyInput();
     }
@@ -70,11 +70,11 @@ search.addEventListener('keydown', function (event) {
 /* ==============================================================
 //creating the list history
 ============================================================== */
-function createSearchResult(searchString) {
+function createSearchResult(searchTerm) {
   var ul = document.getElementById('history');
   var li = document.createElement('li');
   var h2 = document.createElement('h2');
-  h2.innerText = searchString;
+  h2.innerText = searchTerm;
   li.appendChild(h2);
   li.appendChild(dateStamp());
   li.appendChild(createRemoveButton());
