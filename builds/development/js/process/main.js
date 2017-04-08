@@ -17,42 +17,34 @@ function getData(url, callback) {
 // On Search
 var search = document.getElementById("search");
 search.addEventListener('keyup', function(event){
-
   var searchField = document.getElementById("search").value;
 	var myExp = new RegExp(searchField, "i");
-
   /* clearing the results event if user press Backspace */
 	if (!this.value.trim()) {
-		clearUpdate();
+		clearSuggestions();
 		return;
 	}
-
-  // Add data in List items
+  // Output data in List items
   getData('https://restcountries.eu/rest/v1', function(data) {
-
-    var output = '<ul id="searchresults">';
+    var output = '';
     for(var i=0; i < data.length; i++) {
       var item = data[i];
       if (item.name.search(myExp) != -1) {
-        output += '<li>' + item.name + '<li>';
+        output += '<li class="search__suggestion">' + item.name + '</li>';
       }
     }
-
-		output += '</ul>';
-		document.getElementById("update").innerHTML = output;
-
+		document.getElementById("suggestions").innerHTML = output;
   });
-
 });
 /* ==============================================================
 //Add item to history on click an item in the sugested items
 ============================================================== */
-var update = document.getElementById('update');
-update.addEventListener('click', function(event) {
+var suggestions = document.getElementById('suggestions');
+suggestions.addEventListener('click', function(event) {
 	if(event.target && event.target.nodeName == 'LI') {
 		var searchString = event.target.innerText;
 		createSearchResult(searchString);
-		clearUpdate();
+		clearSuggestions();
 		emptyInput();
 	}
 });
@@ -66,34 +58,30 @@ search.addEventListener('keydown', function(event){
 
 		if (search.value) { // if not empty
 			createSearchResult(searchString);
-			clearUpdate();
+			clearSuggestions();
 			emptyInput();
 		}
-    }
+  }
 });
 /* ==============================================================
 //creating the list history
 ============================================================== */
 function createSearchResult(searchString) {
-    var ul = document.getElementById('history');
-
-    var li = document.createElement('li');
-
+  var ul = document.getElementById('history');
+  var li = document.createElement('li');
 	var h2 = document.createElement('h2');
 	h2.innerText = searchString;
 	li.appendChild(h2);
-
-    li.appendChild(dateStamp());
-    li.appendChild(createRemoveButton());
-
-    ul.appendChild(li);
+  li.appendChild(dateStamp());
+  li.appendChild(createRemoveButton());
+  ul.appendChild(li);
 }
 /* ==============================================================
 //Clear sugestions
 ============================================================== */
-function clearUpdate() {
-	var update = document.getElementById('update');
-	while (update.firstChild) update.removeChild(update.firstChild);
+function clearSuggestions() {
+	var suggestions = document.getElementById('suggestions');
+	while (suggestions.firstChild) suggestions.removeChild(suggestions.firstChild);
 }
 /* ==============================================================
 //Clear Input
@@ -106,13 +94,13 @@ function emptyInput() {
 //Timestamp string
 ============================================================== */
 function timeStampHistory() {
-    var now = new Date();
-    var day = (now.getDate() < 10 ? '0' : '') + now.getDate();
-    var month = (now.getMonth() + 1 < 10 ? '0' : '') + (now.getMonth() + 1);
-    var year = now.getFullYear();
-    var hours = (now.getHours() < 10 ? '0' : '') + now.getHours();
-    var minutes = (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+  var now = new Date();
+  var day = (now.getDate() < 10 ? '0' : '') + now.getDate();
+  var month = (now.getMonth() + 1 < 10 ? '0' : '') + (now.getMonth() + 1);
+  var year = now.getFullYear();
+  var hours = (now.getHours() < 10 ? '0' : '') + now.getHours();
+  var minutes = (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+  return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
 }
 function dateStamp() {
 	var stamp = document.createElement('time');
@@ -123,11 +111,18 @@ function dateStamp() {
 //Remove button and its Functionality
 ============================================================== */
 function createRemoveButton() {
-    var button = document.createElement('button');
-    button.className = 'remove-item';
-    button.addEventListener('click', function(event) {
-        event.target.parentNode.remove(this);
-    });
-    return button;
+  var button = document.createElement('button');
+  button.className = 'remove-item';
+  button.addEventListener('click', function(event) {
+      var removeItem = event.target.parentNode;
+      removeItem.parentNode.removeChild(removeItem);
+  });
+  return button;
 };
+
+
+
+
+
+
 

@@ -20,8 +20,14 @@ The List of History Search
     transition: background 0.3s ease-in-out;
     height: 70px;
     display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     align-items: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: space-between;
 
     &:hover {
       background: rgba($white, 0.1);

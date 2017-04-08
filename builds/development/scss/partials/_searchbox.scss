@@ -20,23 +20,25 @@ input:focus, button:focus {
   transition: background .4s ease-in-out;
   opacity: 0;
   animation: slidetop .5s linear .2s forwards;
-  :focus {
+
+  &:focus {
     background: url('../images/search.svg') no-repeat 2rem center rgba($white, 0.6);
     background-size: 25px;
+
     a {
       color: $white;
     }
   }
 }
 ::-webkit-input-placeholder {
-    color: rgba($white, 0.4);
+  color: rgba($white, 0.4);
 }
 ::-moz-placeholder {
-    color: rgba($white, 0.4);
+  color: rgba($white, 0.4);
 }
 :-ms-input-placeholder {
-    color: rgba($white, 0.4);
+  color: rgba($white, 0.4);
 }
 :-moz-placeholder {
-    color: rgba($white, 0.4);
+  color: rgba($white, 0.4);
 }

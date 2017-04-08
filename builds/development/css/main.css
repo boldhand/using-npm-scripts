@@ -515,12 +515,12 @@ input:focus, button:focus {
   animation: slidetop .5s linear .2s forwards;
 }
 
-#search :focus {
+#search:focus {
   background: url("../images/search.svg") no-repeat 2rem center rgba(255, 255, 255, 0.6);
   background-size: 25px;
 }
 
-#search :focus a {
+#search:focus a {
   color: #ffffff;
 }
 
@@ -541,29 +541,24 @@ input:focus, button:focus {
 }
 
 /* ==============================================================
-Countries List Suggestions on search
+List of suggestions on search
 ============================================================== */
-#update {
+#suggestions {
+  margin: 1rem auto;
+  padding: 0;
+  list-style-type: none;
   background: #ffffff;
   max-height: 305px;
   /*disply 5 list items*/
   width: 100%;
   max-width: 1100px;
   margin: 1rem auto;
-  padding: 0;
-  list-style-type: none;
   overflow-y: auto;
   position: absolute;
   z-index: 10;
 }
 
-#update ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-#update ul li {
+#suggestions li {
   line-height: 60px;
   cursor: pointer;
   font-size: 18px;
@@ -574,7 +569,7 @@ Countries List Suggestions on search
   transition: background .2s ease-in-out;
 }
 
-#update ul li:hover, #update ul li.selected {
+#suggestions li:hover, #suggestions li.selected, #suggestions li.search__suggestion--selected {
   background: #E1E6F4;
 }
 
@@ -601,8 +596,14 @@ The List of History Search
   transition: background 0.3s ease-in-out;
   height: 70px;
   display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   align-items: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
 }
 
 #history li:hover {
@@ -694,6 +695,10 @@ The Media Queries
   #history li h2 {
     font-size: 20px;
   }
+}
+
+.selected {
+  background: red !important;
 }
 
 /*# sourceMappingURL=main.css.map */
