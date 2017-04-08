@@ -1,83 +1,49 @@
 /* ==============================================================
 // in search get from json to list
 ============================================================== */
-//Get the Data Function
+// Get the Data Function
 function getData(url, callback) {
-
   var xmlhttp = new XMLHttpRequest();
-
   xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          try {
-              var data = JSON.parse(xmlhttp.responseText);
-          } catch(err) {
-              console.log(err.message + ' in ' + xmlhttp.responseText);
-              return;
-          }
-          callback(data);
-      }
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      var data = JSON.parse(xmlhttp.responseText);
+      callback(data);
+    }
   };
-
   xmlhttp.open('GET', url, true);
   xmlhttp.send();
-
 }
-// Store the data in List items
-getData('https://restcountries.eu/rest/v1', function(data) {
 
-  var searchValue = document.getElementById("search").value;
-  var myExp = new RegExp(searchValue, "i");
-  var html = '';
+// On Search
+var search = document.getElementById("search");
+search.addEventListener('keyup', function(event){
 
-  for (var i=0; i < data.length; i++) {
-      // if ((data.name = ) || (data.capital = )) {
-        html += '<li>' + data[i].name + '</li>';
-      // }
-  }
+  var searchField = document.getElementById("search").value;
+	var myExp = new RegExp(searchField, "i");
 
-  document.getElementById('suggestions').innerHTML = html;
+  /* clearing the results event if user press Backspace */
+	if (!this.value.trim()) {
+		clearUpdate();
+		return;
+	}
+
+  // Add data in List items
+  getData('https://restcountries.eu/rest/v1', function(data) {
+
+    var output = '<ul id="searchresults">';
+    for(var i=0; i < data.length; i++) {
+      var item = data[i];
+      if (item.name.search(myExp) != -1) {
+        output += '<li>' + item.name + '<li>';
+      }
+    }
+
+		output += '</ul>';
+		document.getElementById("update").innerHTML = output;
+
+  });
 
 });
-
-
-
-
-// var search = document.getElementById("search");
-// search.addEventListener('keyup', function(event){
-
-// 	//clear results if the value is blank or starts with space
-// 	if (!this.value.trim()) {
-// 		clearUpdate();
-// 		return;
-// 	}
-
-// 	var searchField = document.getElementById("search").value;
-// 	var myExp = new RegExp(searchField, "i");
-
-// 	function fetchfile(path, callback) {
-//     var httpRequest = new XMLHttpRequest();
-//     httpRequest.onreadystatechange = function() {
-//         if (this.readyState === 4 && this.status === 200) {
-// 			var data = JSON.parse(this.responseText);
-// 			if (callback) callback(data);
-//         }
-//     };
-//     httpRequest.open('GET', path, true);
-//     httpRequest.send();
-// 	}
-// 	fetchfile('https://restcountries.eu/rest/v1', function(data){
-// 		var output = '<ul id="searchresults">';
-// 		$.each(data, function(key, val) {
-// 			if ((val.name.search(myExp) != -1) || (val.capital.search(myExp) != -1)) {
-// 				output += '<li tabindex="1">';
-// 				output += val.name + ', ' + val.capital;
-// 				output += '</li>';
-// 			}
-// 		});
-// 		output += '</ul>';
-// 		$('#update').html(output);
-// 	});
-// });
 /* ==============================================================
 //Add item to history on click an item in the sugested items
 ============================================================== */
